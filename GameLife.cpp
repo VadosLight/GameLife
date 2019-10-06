@@ -15,11 +15,12 @@ int wrapValue(int v, int vMax)
 }
 
 int main()
-{
-	const int CELL_SIZE = 20;
-	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
+{	
+	const int CELL_SIZE = 20;	
 	const int GRID_WIDTH = 40;
 	const int GRID_HEIGHT = 30;
+	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
+
 	const int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
 	int grid[N_CELLS] = {  };
 	int gridNext[N_CELLS];
@@ -40,6 +41,8 @@ int main()
 	bool isPlaying = true;
 	//заготовка для инструкции
 	
+	
+
 		sf::Font font;
 		font.loadFromFile("./fonts/1.ttf");
 
@@ -67,6 +70,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");
 	while (window.isOpen())
 	{
+		
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -86,8 +90,8 @@ int main()
 			case sf::Event::MouseButtonPressed:
 				if (!isPlaying && event.mouseButton.button == sf::Mouse::Left)
 				{
-					int x = double(event.mouseButton.x) / CELL_SIZE;
-					int y = double(event.mouseButton.y) / CELL_SIZE;
+					int x = int(event.mouseButton.x) / CELL_SIZE;
+					int y = int(event.mouseButton.y) / CELL_SIZE;
 					if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
 						grid[x + y * GRID_WIDTH] = !grid[x + y * GRID_WIDTH];
 				}
