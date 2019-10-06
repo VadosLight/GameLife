@@ -1,0 +1,2 @@
+﻿  GameLife.cpp
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(2,10): error C1083:  Не удается открыть файл включение: SFML/Graphics.hpp: No such file or directory,
