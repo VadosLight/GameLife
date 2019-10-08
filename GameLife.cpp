@@ -1,6 +1,7 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <time.h>
+#include "UserInterface.h"
 
 #define WHITE sf::Color::White
 #define BLACK sf::Color::Black
@@ -25,50 +26,15 @@ int main()
 	int gridNext[N_CELLS];
 	srand(time(nullptr));//нулптр вместо нулл
 
-	//пошаговый режим
-	
+	//пошаговый режим	
 	//сохранить/загрузить карту
-
 	const int DELAY_INC = 50;
 	int delay = 100;
-
 	bool isPlaying = false;
-	//заготовка для инструкции
-	/*
-	sf::Font font;
-	font.loadFromFile("./fonts/1.ttf");
-
-	sf::Text textPause("Press P to pause", font);
-	textPause.setCharacterSize(15);
-	textPause.setPosition(10, CELL_SIZE * GRID_HEIGHT + 5);
-	textPause.setFillColor(BLACK);
-
-	sf::Text textPlay("Press P to start", font);
-	textPlay.setCharacterSize(15);
-	textPlay.setPosition(10, CELL_SIZE * GRID_HEIGHT + 5);
-	textPlay.setFillColor(BLACK);
-
-	sf::Text textToggle("Press on rectangle to change colour", font);
-	textToggle.setCharacterSize(15);
-	textToggle.setPosition(10, CELL_SIZE * GRID_HEIGHT + 25);
-	textToggle.setFillColor(BLACK);
-
-	sf::Text textSpeed("<- and -> change speed", font);
-	textSpeed.setCharacterSize(15);
-	textSpeed.setPosition(300, CELL_SIZE * GRID_HEIGHT + 5);
-	textSpeed.setFillColor(BLACK);
-	*/
+	/////////////////////////////////////////////////////////////////////////////
+	UserInterface  ui;
 	
-	std::cout << "==================================================" << std::endl;
-	std::cout << "==================================================" << std::endl;
-	std::cout << "==================INSTRUCTION=====================" << std::endl;
-	std::cout << "\tPress P to pause/start" << std::endl;
-	std::cout << "\tPress on rectangle to change colour" << std::endl;
-	std::cout << "\t<- and -> change speed" << std::endl;
-	std::cout << "\tPress C to clear screen" << std::endl;
-	std::cout << "==================================================" << std::endl;
-	std::cout << "==================================================" << std::endl;
-	
+
 
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");
 	while (window.isOpen())

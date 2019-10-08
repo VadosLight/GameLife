@@ -1,5 +1,7 @@
 ﻿  GameLife.cpp
-D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(26,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(126,39): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(126,24): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(27,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(129,39): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
+  UserInterface.cpp
+  Создание кода...
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(129,24): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
   GameLife.vcxproj -> D:\Projects\New\F_K\lab2\GameLife\Debug\GameLife.exe

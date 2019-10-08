@@ -1,6 +1,11 @@
 #pragma once
 #include <iostream>
 
-class Interface {
-	//body
+class UserInterface {
+	UserInterface() {
+		showHelp();
+	}
+public:
+	void showHelp();
+
 };
