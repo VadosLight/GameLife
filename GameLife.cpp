@@ -19,11 +19,11 @@ int main()
 {	
 	GameField gf;
 	srand(time(nullptr));
-	const int CELL_SIZE		 = 20;
-	const int GRID_WIDTH	 = 40;
-	const int GRID_HEIGHT	 = 30;
+	constexpr int CELL_SIZE		 = 20;
+	constexpr int GRID_WIDTH	 = 40;
+	constexpr int GRID_HEIGHT	 = 30;
+	constexpr int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
 
-	const int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
 	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
 
 	//пошаговый режим	
@@ -31,7 +31,7 @@ int main()
 	const int DELAY_INC = 50;
 	int delay = 100;
 	bool isPlaying = false;
-	int oneStep = 0;
+	bool oneStep = false;
 	///////////////////////
 	UserInterface  ui;
 
@@ -65,18 +65,16 @@ int main()
 					for (int i = 0; i < N_CELLS; i++) {
 						int tmp = (double(rand()) / RAND_MAX < 0.2f) ? 1 : 0;
 						gf.set_grid(i, tmp);
-					}
-						 
+					}						 
 				}
 				//Очистить поле
 				else if (event.key.code == sf::Keyboard::C) {
 					for (int i = 0; i < N_CELLS; i++)
 						gf.set_grid(i, 0);
-						//grid[i] = 0;
 				}
 				//Делаем один шаг
 				else if (event.key.code == sf::Keyboard::N){
-					oneStep++;
+					oneStep = true;
 				}
 				break;
 			case sf::Event::MouseButtonPressed:
@@ -110,8 +108,8 @@ int main()
 				window.draw(cell);
 
 				// подготовка следующей матрицы
-				if (isPlaying)
-				{
+				if (isPlaying || oneStep)
+				{					
 					int neighborSum = 0;
 					for (int i = -1; i < 2; i++)
 						for (int j = -1; j < 2; j++)
@@ -133,10 +131,12 @@ int main()
 		}
 
 		// перекидываем подготовленные данные в матрицу для отображения
-		if (isPlaying)
+		if (isPlaying || oneStep)
+		{
+			oneStep = false;
 			for (int i = 0; i < N_CELLS; i++)
 				gf.set_grid(i, gf.get_gridNext(i));
-				
+		}
 
 		window.display();
 		sf::sleep(sf::milliseconds(delay));
