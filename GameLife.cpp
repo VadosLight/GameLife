@@ -2,6 +2,7 @@
 #include <iostream>
 #include <time.h>
 #include "UserInterface.h"
+#include "GameField.h"
 
 #define WHITE sf::Color::White
 #define BLACK sf::Color::Black
@@ -16,24 +17,23 @@ int wrapValue(int v, int vMax)
 
 int main()
 {	
-	constexpr int CELL_SIZE = 20;
-	constexpr int GRID_WIDTH = 40;
-	constexpr int GRID_HEIGHT = 30;
-	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
+	GameField gf;
+	srand(time(nullptr));
+	const int CELL_SIZE		 = 20;
+	const int GRID_WIDTH	 = 40;
+	const int GRID_HEIGHT	 = 30;
 
-	constexpr int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
-	int grid[N_CELLS] = {  };
-	int gridNext[N_CELLS];
-	srand(time(nullptr));//нулптр вместо нулл
+	const int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
+	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
 
 	//пошаговый режим	
 	//сохранить/загрузить карту
 	const int DELAY_INC = 50;
 	int delay = 100;
 	bool isPlaying = false;
-	/////////////////////////////////////////////////////////////////////////////
+	int oneStep = 0;
+	///////////////////////
 	UserInterface  ui;
-	
 
 
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");
@@ -49,33 +49,43 @@ int main()
 				break;
 			case sf::Event::KeyPressed:
 				//Пауза
-				if (event.key.code == sf::Keyboard::P)
+				if (event.key.code == sf::Keyboard::P) {
 					isPlaying = !isPlaying;
+				}
 				//Ускорить
-				else if (event.key.code == sf::Keyboard::Right)
+				else if (event.key.code == sf::Keyboard::Right) {
 					delay = std::max(delay - DELAY_INC, 0);
+				}
 				//Замедлить
-				else if (event.key.code == sf::Keyboard::Left)
+				else if (event.key.code == sf::Keyboard::Left){
 					delay += DELAY_INC;
+				}			
 				//Заполнить рандомно
 				else if (event.key.code == sf::Keyboard::R) {
-					for (int i = 0; i < N_CELLS; i++)
-					grid[i] = (double(rand()) / RAND_MAX < 0.2f) ? 1 : 0;
+					for (int i = 0; i < N_CELLS; i++) {
+						int tmp = (double(rand()) / RAND_MAX < 0.2f) ? 1 : 0;
+						gf.set_grid(i, tmp);
+					}
+						 
 				}
 				//Очистить поле
 				else if (event.key.code == sf::Keyboard::C) {
 					for (int i = 0; i < N_CELLS; i++)
-						grid[i] = 0;
+						gf.set_grid(i, 0);
+						//grid[i] = 0;
+				}
+				//Делаем один шаг
+				else if (event.key.code == sf::Keyboard::N){
+					oneStep++;
 				}
 				break;
-
 			case sf::Event::MouseButtonPressed:
 				if (!isPlaying && event.mouseButton.button == sf::Mouse::Left)
 				{
 					int x = int(event.mouseButton.x) / CELL_SIZE;
 					int y = int(event.mouseButton.y) / CELL_SIZE;
 					if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
-						grid[x + y * GRID_WIDTH] = !grid[x + y * GRID_WIDTH];
+						gf.set_grid(x, y, !gf.get_grid(x, y));
 				}
 				break;
 			}
@@ -93,7 +103,7 @@ int main()
 				cell.setSize(CELL_VECTOR);
 				cell.setOutlineThickness(1);
 				cell.setOutlineColor(GRAY);
-				if (grid[x + y * GRID_WIDTH] == 1)
+				if (gf.get_grid(x,y) == 1)
 					cell.setFillColor(BLACK);
 				else
 					cell.setFillColor(WHITE);
@@ -108,16 +118,16 @@ int main()
 						{
 							int xi = wrapValue(x + i, GRID_WIDTH);
 							int yj = wrapValue(y + j, GRID_HEIGHT);
-							neighborSum += grid[xi + yj * GRID_WIDTH];
+							neighborSum += gf.get_grid(xi, yj);
 						}
 
-					int current = x + y * GRID_WIDTH;
-					neighborSum -= grid[current];
-					gridNext[current] = grid[current];
-					if (grid[current] == 1 && (neighborSum < 2 || neighborSum > 3))
-						gridNext[current] = 0;
+					int val = gf.get_grid(x, y);
+					neighborSum -= val;
+					gf.set_gridNext(x, y, val);
+					if (val == 1 && (neighborSum < 2 || neighborSum > 3))
+						gf.set_gridNext(x, y, 0);
 					else if (neighborSum == 3)
-						gridNext[current] = 1;
+						gf.set_gridNext(x, y, 1);
 				}
 			}
 		}
@@ -125,19 +135,9 @@ int main()
 		// перекидываем подготовленные данные в матрицу для отображения
 		if (isPlaying)
 			for (int i = 0; i < N_CELLS; i++)
-				grid[i] = gridNext[i];
+				gf.set_grid(i, gf.get_gridNext(i));
+				
 
-		/*
-		// Отрисовка инструкции
-		window.draw(textSpeed);
-		if (isPlaying)
-			window.draw(textPause);
-		else
-		{
-			window.draw(textPlay);
-			window.draw(textToggle);
-		}
-		*/
 		window.display();
 		sf::sleep(sf::milliseconds(delay));
 	}

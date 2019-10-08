@@ -50,3 +50,15 @@ textSpeed.setCharacterSize(15);
 textSpeed.setPosition(300, CELL_SIZE * GRID_HEIGHT + 5);
 textSpeed.setFillColor(BLACK);
 */
+
+/*
+// Отрисовка инструкции
+window.draw(textSpeed);
+if (isPlaying)
+	window.draw(textPause);
+else
+{
+	window.draw(textPlay);
+	window.draw(textToggle);
+}
+*/
