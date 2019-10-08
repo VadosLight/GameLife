@@ -8,7 +8,6 @@
 
 int wrapValue(int v, int vMax)
 {
-	// To generalize this, use modulo
 	if (v == -1) return vMax - 1;
 	if (v == vMax) return 0;
 	return v;
@@ -16,61 +15,64 @@ int wrapValue(int v, int vMax)
 
 int main()
 {	
-	const int CELL_SIZE = 20;	
-	const int GRID_WIDTH = 40;
-	const int GRID_HEIGHT = 30;
+	constexpr int CELL_SIZE = 20;
+	constexpr int GRID_WIDTH = 40;
+	constexpr int GRID_HEIGHT = 30;
 	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
 
-	const int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
+	constexpr int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
 	int grid[N_CELLS] = {  };
 	int gridNext[N_CELLS];
-	srand(time(NULL));
+	srand(time(nullptr));//нулптр вместо нулл
 
-
-	for (int i = 0; i < N_CELLS; i++)
-		grid[i] = (double(rand()) / RAND_MAX < 0.1) ? 1 : 0;
-	// grid[0 + 0 * GRID_WIDTH] = 1;
-	// grid[1 + 1 * GRID_WIDTH] = 1;
-	// grid[2 + 1 * GRID_WIDTH] = 1;
-	// grid[0 + 2 * GRID_WIDTH] = 1;
-	// grid[1 + 2 * GRID_WIDTH] = 1;
+	//пошаговый режим
+	
+	//сохранить/загрузить карту
 
 	const int DELAY_INC = 50;
 	int delay = 100;
 
-	bool isPlaying = true;
+	bool isPlaying = false;
 	//заготовка для инструкции
+	/*
+	sf::Font font;
+	font.loadFromFile("./fonts/1.ttf");
+
+	sf::Text textPause("Press P to pause", font);
+	textPause.setCharacterSize(15);
+	textPause.setPosition(10, CELL_SIZE * GRID_HEIGHT + 5);
+	textPause.setFillColor(BLACK);
+
+	sf::Text textPlay("Press P to start", font);
+	textPlay.setCharacterSize(15);
+	textPlay.setPosition(10, CELL_SIZE * GRID_HEIGHT + 5);
+	textPlay.setFillColor(BLACK);
+
+	sf::Text textToggle("Press on rectangle to change colour", font);
+	textToggle.setCharacterSize(15);
+	textToggle.setPosition(10, CELL_SIZE * GRID_HEIGHT + 25);
+	textToggle.setFillColor(BLACK);
+
+	sf::Text textSpeed("<- and -> change speed", font);
+	textSpeed.setCharacterSize(15);
+	textSpeed.setPosition(300, CELL_SIZE * GRID_HEIGHT + 5);
+	textSpeed.setFillColor(BLACK);
+	*/
 	
-	
-
-		sf::Font font;
-		font.loadFromFile("./fonts/1.ttf");
-
-		sf::Text textPause("Press P to pause", font);
-		textPause.setCharacterSize(15);
-		textPause.setPosition(10, CELL_SIZE * GRID_HEIGHT + 5);
-		textPause.setFillColor(BLACK);
-
-		sf::Text textPlay("Press P to start", font);
-		textPlay.setCharacterSize(15);
-		textPlay.setPosition(10, CELL_SIZE * GRID_HEIGHT + 5);
-		textPlay.setFillColor(BLACK);
-
-		sf::Text textToggle("Press on rectangle to change colour", font);
-		textToggle.setCharacterSize(15);
-		textToggle.setPosition(10, CELL_SIZE * GRID_HEIGHT + 25);
-		textToggle.setFillColor(BLACK);
-
-		sf::Text textSpeed("<- and -> change speed", font);
-		textSpeed.setCharacterSize(15);
-		textSpeed.setPosition(300, CELL_SIZE * GRID_HEIGHT + 5);
-		textSpeed.setFillColor(BLACK);
+	std::cout << "==================================================" << std::endl;
+	std::cout << "==================================================" << std::endl;
+	std::cout << "==================INSTRUCTION=====================" << std::endl;
+	std::cout << "\tPress P to pause/start" << std::endl;
+	std::cout << "\tPress on rectangle to change colour" << std::endl;
+	std::cout << "\t<- and -> change speed" << std::endl;
+	std::cout << "\tPress C to clear screen" << std::endl;
+	std::cout << "==================================================" << std::endl;
+	std::cout << "==================================================" << std::endl;
 	
 
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");
 	while (window.isOpen())
-	{
-		
+	{		
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
@@ -80,13 +82,27 @@ int main()
 				window.close();
 				break;
 			case sf::Event::KeyPressed:
+				//Пауза
 				if (event.key.code == sf::Keyboard::P)
 					isPlaying = !isPlaying;
+				//Ускорить
 				else if (event.key.code == sf::Keyboard::Right)
 					delay = std::max(delay - DELAY_INC, 0);
+				//Замедлить
 				else if (event.key.code == sf::Keyboard::Left)
 					delay += DELAY_INC;
+				//Заполнить рандомно
+				else if (event.key.code == sf::Keyboard::R) {
+					for (int i = 0; i < N_CELLS; i++)
+					grid[i] = (double(rand()) / RAND_MAX < 0.2f) ? 1 : 0;
+				}
+				//Очистить поле
+				else if (event.key.code == sf::Keyboard::C) {
+					for (int i = 0; i < N_CELLS; i++)
+						grid[i] = 0;
+				}
 				break;
+
 			case sf::Event::MouseButtonPressed:
 				if (!isPlaying && event.mouseButton.button == sf::Mouse::Left)
 				{
@@ -145,6 +161,7 @@ int main()
 			for (int i = 0; i < N_CELLS; i++)
 				grid[i] = gridNext[i];
 
+		/*
 		// Отрисовка инструкции
 		window.draw(textSpeed);
 		if (isPlaying)
@@ -154,7 +171,7 @@ int main()
 			window.draw(textPlay);
 			window.draw(textToggle);
 		}
-
+		*/
 		window.display();
 		sf::sleep(sf::milliseconds(delay));
 	}

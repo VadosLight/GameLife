@@ -1,0 +1,9 @@
+﻿  GameLife.cpp
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(26,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(127,39): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(127,24): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 61 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  GameLife.vcxproj -> D:\Projects\New\F_K\lab2\GameLife\Release\GameLife.exe
