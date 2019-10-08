@@ -2,33 +2,8 @@
 
 GameField::GameField()
 {
-	CELL_SIZE = 20;
-	GRID_WIDTH = 40;
-	GRID_HEIGHT = 30;
-	N_CELLS = GRID_WIDTH * GRID_HEIGHT;
-
 	grid = new int [N_CELLS];
 	gridNext = new int[N_CELLS];
-}
-
-int GameField::get_CELL_SIZE()
-{
-	return CELL_SIZE;
-}
-
-int GameField::get_GRID_WIDTH()
-{
-	return GRID_WIDTH;
-}
-
-int GameField::get_GRID_HEIGHT()
-{
-	return GRID_HEIGHT;
-}
-
-int GameField::get_N_CELLS()
-{
-	return N_CELLS;
 }
 
 int GameField::get_grid(int x, int y)
@@ -65,6 +40,128 @@ void GameField::set_gridNext(int x, int y, int val)
 {
 	gridNext[x + y * GRID_WIDTH] = val;
 }
+
+void GameField::set_gridNext(int i, int val)
+{
+	gridNext[i] = val;
+}
+
+void GameField::calcGrid()
+{
+	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
+	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");
+	srand(time(nullptr));
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			switch (event.type)//обработчик событий закрыть/кнопка_клавиатуры/мышь
+			{
+			case sf::Event::Closed:
+				window.close();
+				break;
+			case sf::Event::KeyPressed:
+				//Пауза
+				if (event.key.code == sf::Keyboard::P) {
+					isPlaying = !isPlaying;
+				}
+				//Ускорить
+				else if (event.key.code == sf::Keyboard::Right) {
+					delay = std::max(delay - DELAY_INC, 0);
+				}
+				//Замедлить
+				else if (event.key.code == sf::Keyboard::Left) {
+					delay += DELAY_INC;
+				}
+				//Заполнить рандомно
+				else if (event.key.code == sf::Keyboard::R) {
+					for (int i = 0; i < N_CELLS; i++) {
+						int tmp = (double(rand()) / RAND_MAX < 0.2f) ? 1 : 0;
+						set_grid(i, tmp);
+					}
+				}
+				//Очистить поле
+				else if (event.key.code == sf::Keyboard::C) {
+					for (int i = 0; i < N_CELLS; i++)
+						set_grid(i, 0);
+				}
+				//Делаем один шаг
+				else if (event.key.code == sf::Keyboard::N) {
+					oneStep = true;
+				}
+				break;
+			case sf::Event::MouseButtonPressed:
+				if (!isPlaying && event.mouseButton.button == sf::Mouse::Left)
+				{
+					int x = int(event.mouseButton.x) / CELL_SIZE;
+					int y = int(event.mouseButton.y) / CELL_SIZE;
+					if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT)
+						set_grid(x, y, !get_grid(x, y));
+				}
+				break;
+			}
+		}
+		window.clear(WHITE);
+		for (int x = 0; x < GRID_WIDTH; x++)
+		{
+			for (int y = 0; y < GRID_HEIGHT; y++)
+			{
+				// отрисовка текущей страницы
+				sf::RectangleShape cell;
+				cell.setPosition(x * CELL_SIZE, y * CELL_SIZE);
+				cell.setSize(CELL_VECTOR);
+				cell.setOutlineThickness(1);
+				cell.setOutlineColor(GRAY);
+				if (get_grid(x, y) == 1)
+					cell.setFillColor(BLACK);
+				else
+					cell.setFillColor(WHITE);
+				window.draw(cell);
+
+				// подготовка следующей матрицы
+				if (isPlaying || oneStep)
+				{
+					int neighborSum = 0;
+					for (int i = -1; i < 2; i++)
+						for (int j = -1; j < 2; j++)
+						{
+							int xi = wrapValue(x + i, GRID_WIDTH);
+							int yj = wrapValue(y + j, GRID_HEIGHT);
+							neighborSum += get_grid(xi, yj);
+						}
+
+					int val = get_grid(x, y);
+					neighborSum -= val;
+					set_gridNext(x, y, val);
+					if (val == 1 && (neighborSum < 3 || neighborSum > 4))
+						set_gridNext(x, y, 0);
+					else if (neighborSum == 3)
+						set_gridNext(x, y, 1);
+				}
+			}
+		}
+
+		// перекидываем подготовленные данные в матрицу для отображения
+		if (isPlaying || oneStep)
+		{
+			oneStep = false;
+			for (int i = 0; i < N_CELLS; i++)
+				set_grid(i, get_gridNext(i));
+		}
+
+		window.display();
+		sf::sleep(sf::milliseconds(delay));
+	}
+}
+
+int GameField::wrapValue(int v, int vMax)
+	{
+		if (v == -1) return vMax - 1;
+		if (v == vMax) return 0;
+		return v;
+	}
 
 GameField::~GameField()
 {

@@ -1,5 +1,15 @@
-﻿  GameLife.cpp
-D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(21,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(100,39): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
-D:\Projects\New\F_K\lab2\GameLife\GameLife.cpp(100,24): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
+﻿  GameField.cpp
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,44): warning C4244:  аргумент: преобразование "const int" в "T", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,44): warning C4244:         with
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,44): warning C4244:         [
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,44): warning C4244:             T=float
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,44): warning C4244:         ]
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,33): warning C4244:  аргумент: преобразование "const int" в "T", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,33): warning C4244:         with
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,33): warning C4244:         [
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,33): warning C4244:             T=float
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(51,33): warning C4244:         ]
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(113,39): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(113,24): warning C4244:  аргумент: преобразование "int" в "float", возможна потеря данных
   GameLife.vcxproj -> D:\Projects\New\F_K\lab2\GameLife\Debug\GameLife.exe
