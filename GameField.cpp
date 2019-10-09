@@ -2,15 +2,10 @@
 
 GameField::GameField()
 {
-	//grid = new int [N_CELLS];
-	//gridNext = new int[N_CELLS];
 	for (int i = 0; i < N_CELLS; i++) {
 		grid.push_back(0);
 		gridNext.push_back(0);
 	}
-
-
-
 }
 
 int GameField::get_grid(int x, int y)
@@ -84,14 +79,14 @@ void GameField::runGame()
 				}
 				//Заполнить рандомно
 				else if (event.key.code == sf::Keyboard::R) {
-					for (int i = 0; i < N_CELLS; i++) {
+					for (size_t i = 0; i < N_CELLS; i++) {
 						int tmp = (double(rand()) / RAND_MAX < 0.2f) ? 1 : 0;
 						set_grid(i, tmp);
 					}
 				}
 				//Очистить поле
 				else if (event.key.code == sf::Keyboard::C) {
-					for (int i = 0; i < N_CELLS; i++)
+					for (size_t i = 0; i < N_CELLS; i++)
 						set_grid(i, 0);
 				}
 				//Делаем один шаг
@@ -111,9 +106,9 @@ void GameField::runGame()
 			}
 		}
 		window.clear(WHITE);
-		for (int x = 0; x < GRID_WIDTH; x++)
+		for (size_t x = 0; x < GRID_WIDTH; x++)
 		{
-			for (int y = 0; y < GRID_HEIGHT; y++)
+			for (size_t y = 0; y < GRID_HEIGHT; y++)
 			{
 				// отрисовка текущей страницы
 				sf::RectangleShape cell;
@@ -142,7 +137,7 @@ void GameField::runGame()
 					int val = get_grid(x, y);
 					neighborSum -= val;
 					set_gridNext(x, y, val);
-					if (val == 1 && (neighborSum < 3 || neighborSum > 4))
+					if (val == 1 && (neighborSum < 2 || neighborSum > 3))
 						set_gridNext(x, y, 0);
 					else if (neighborSum == 3)
 						set_gridNext(x, y, 1);
@@ -164,8 +159,8 @@ void GameField::runGame()
 }
 
 int GameField::wrapValue(int v, int vMax)
-	{
+{
 		if (v == -1) return vMax - 1;
 		if (v == vMax) return 0;
 		return v;
-	}
+}
