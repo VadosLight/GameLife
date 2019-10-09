@@ -46,7 +46,7 @@ void GameField::set_gridNext(int i, int val)
 	gridNext[i] = val;
 }
 
-void GameField::calcGrid()
+void GameField::runGame()
 {
 	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");

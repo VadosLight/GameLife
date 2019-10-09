@@ -7,5 +7,5 @@ int main()
 {		
 	UserInterface  ui;
 	GameField gf;	
-	gf.calcGrid();
+	gf.runGame();
 }
