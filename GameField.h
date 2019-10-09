@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <time.h>
+#include <vector>
 
 #define WHITE sf::Color::White
 #define BLACK sf::Color::Black
@@ -20,10 +20,13 @@ class GameField
 private:
 	//=========================================== приватные переменные
 		
+
 	//“екущее состо€ние пол€
-	int* grid;
+	std::vector<int> grid;
 	//—ледующее состо€ние пол€
-	int* gridNext;
+	std::vector<int> gridNext;
+
+
 	//–азмер €чеек
 	const int CELL_SIZE = 20;
 	//Ўирина пол€ в €чейках
@@ -31,7 +34,7 @@ private:
 	//ƒлина пол€ в €чейках
 	const int GRID_HEIGHT = 30;
 	//ќбщее количество €чеек
-	const int N_CELLS = GRID_WIDTH * GRID_HEIGHT;
+	const size_t N_CELLS = GRID_WIDTH * GRID_HEIGHT;
 	//Ўаг дл€ задержки
 	const int DELAY_INC = 50;
 	//–егул€тор скорости
@@ -73,6 +76,6 @@ public:
 	*/
 	void runGame();
 
-	~GameField();
+	~GameField() {};
 };
 

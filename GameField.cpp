@@ -2,8 +2,15 @@
 
 GameField::GameField()
 {
-	grid = new int [N_CELLS];
-	gridNext = new int[N_CELLS];
+	//grid = new int [N_CELLS];
+	//gridNext = new int[N_CELLS];
+	for (int i = 0; i < N_CELLS; i++) {
+		grid.push_back(0);
+		gridNext.push_back(0);
+	}
+
+
+
 }
 
 int GameField::get_grid(int x, int y)
@@ -162,9 +169,3 @@ int GameField::wrapValue(int v, int vMax)
 		if (v == vMax) return 0;
 		return v;
 	}
-
-GameField::~GameField()
-{
-	delete[] grid;
-	delete[] gridNext;
-}
