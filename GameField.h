@@ -9,8 +9,8 @@
 #include <algorithm> 
 #include <iostream> 
 
-#define WHITE sf::Color::White
-#define BLACK sf::Color::Black
+#define WHITE sf::Color(100, 100, 250)
+#define BLACK sf::Color::Green
 #define GRAY sf::Color(153, 153, 153)
 
 class GameField final{

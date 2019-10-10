@@ -4,16 +4,17 @@
 void UserInterface::showHelp() const noexcept
 {
 	
-	std::cout << "==================================================" << std::endl;
-	std::cout << "==================================================" << std::endl;
-	std::cout << "==================INSTRUCTION=====================" << std::endl;
-	std::cout << "\tPress P to pause/start" << std::endl;
-	std::cout << "\tPress on rectan gle to change colour" << std::endl;
-	std::cout << "\t<- and -> change speed" << std::endl;
-	std::cout << "\tPress C to clear screen" << std::endl;
-	std::cout << "\tPress N to go to next step (while pause)" << std::endl;
-	std::cout << "==================================================" << std::endl;	
-	std::cout << "==============================================================================================================" << std::endl;
+	std::cout << "\t\t\t==================================================" << std::endl;
+	std::cout << "\t\t\t==================================================" << std::endl;
+	std::cout << "\t\t\t==================INSTRUCTION=====================" << std::endl;
+	std::cout << "\t\t\t\tPress P to pause/start" << std::endl;
+	std::cout << "\t\t\t\tPress on rectan gle to change colour" << std::endl;
+	std::cout << "\t\t\t\t<- and -> change speed" << std::endl;
+	std::cout << "\t\t\t\tPress C to clear screen" << std::endl;
+	std::cout << "\t\t\t\tPress N to go to next step (while pause)" << std::endl;
+	std::cout << "\t\t\t\tPress S/O to Save/Open world" << std::endl;
+	std::cout << "\t\t\t==================================================" << std::endl;	
+	std::cout << "\t\t\t==================================================" << std::endl;
 	std::cout << "The universe of the Game of Life is an infinite, two-dimensional orthogonal grid of square cells,\n\
 each of which is in one of two possible states, alive or dead, (or populated and unpopulated, respectively).\n\
 Every cell interacts with its eight neighbours, which are the cells that are horizontally, vertically,\n\
@@ -34,8 +35,6 @@ std::string UserInterface::validOpenFilename() const
 		std::cout << "Input name file, where saved the file: ";
 		std::cin >> tmpFilename;
 		out.open(tmpFilename);
-
-
 	} while (!out.is_open());
 
 	out.close();
@@ -51,8 +50,6 @@ std::string UserInterface::validSaveFilename() const noexcept
 		std::cout << "Input name file, where file would be saved: ";
 		std::cin >> tmpFilename;
 		out.open(tmpFilename);
-
-
 	} while (!out.is_open());
 
 	out.close();

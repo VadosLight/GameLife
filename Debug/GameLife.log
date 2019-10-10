@@ -15,5 +15,8 @@ D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(129,50): warning C4018:  <: не
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(142,39): warning C4244:  аргумент: преобразование "size_t" в "float", возможна потеря данных
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(142,24): warning C4244:  аргумент: преобразование "size_t" в "float", возможна потеря данных
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(180,22): warning C4018:  <: несоответствие типов со знаком и без знака
+  GameLife.cpp
+  UserInterface.cpp
+  Создание кода...
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(198,20): warning C4018:  <: несоответствие типов со знаком и без знака
   GameLife.vcxproj -> D:\Projects\New\F_K\lab2\GameLife\Debug\GameLife.exe
