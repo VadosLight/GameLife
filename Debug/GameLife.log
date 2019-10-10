@@ -1,5 +1,4 @@
 ﻿  GameField.cpp
-D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(5,20): warning C4018:  <: несоответствие типов со знаком и без знака
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,44): warning C4244:  аргумент: преобразование "const size_t" в "T", возможна потеря данных
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,44): warning C4244:         with
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,44): warning C4244:         [
@@ -11,11 +10,10 @@ D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,33): warning C4244:         [
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,33): warning C4244:             T=float
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(53,33): warning C4244:         ]
 D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(55,12): warning C4244:  аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(102,22): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(102,50): warning C4018:  <: несоответствие типов со знаком и без знака
-D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(115,39): warning C4244:  аргумент: преобразование "size_t" в "float", возможна потеря данных
-D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(115,24): warning C4244:  аргумент: преобразование "size_t" в "float", возможна потеря данных
-  GameLife.cpp
-  Создание кода...
-D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(152,22): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(129,22): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(129,50): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(142,39): warning C4244:  аргумент: преобразование "size_t" в "float", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(142,24): warning C4244:  аргумент: преобразование "size_t" в "float", возможна потеря данных
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(180,22): warning C4018:  <: несоответствие типов со знаком и без знака
+D:\Projects\New\F_K\lab2\GameLife\GameField.cpp(198,20): warning C4018:  <: несоответствие типов со знаком и без знака
   GameLife.vcxproj -> D:\Projects\New\F_K\lab2\GameLife\Debug\GameLife.exe

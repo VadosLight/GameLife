@@ -1,11 +1,9 @@
 #include "GameField.h"
+#include "UserInterface.h"
 
 GameField::GameField()
 {
-	for (int i = 0; i < N_CELLS; i++) {
-		grid.push_back(0);
-		gridNext.push_back(0);
-	}
+
 }
 
 int GameField::get_grid(int x, int y)
@@ -48,8 +46,10 @@ void GameField::set_gridNext(int i, int val)
 	gridNext[i] = val;
 }
 
-void GameField::runGame()
+void GameField::run_Game()
 {
+	init_grid();
+
 	const sf::Vector2f CELL_VECTOR(CELL_SIZE, CELL_SIZE);
 	sf::RenderWindow window(sf::VideoMode(CELL_SIZE * GRID_WIDTH, CELL_SIZE * GRID_HEIGHT + 50), "GameLife");
 	srand(time(nullptr));
@@ -93,6 +93,33 @@ void GameField::runGame()
 				else if (event.key.code == sf::Keyboard::N) {
 					oneStep = true;
 				}
+				//Загрузить пресет
+				else if (event.key.code == sf::Keyboard::O) {
+					std::string fileName = UserInterface().validOpenFilename();
+					char ch;
+					std::ifstream fin(fileName);
+					int i = 0;
+					while (fin.get(ch))
+					{
+						set_grid(i, (int)ch-48); // 48- сдвиг символа
+						i++;
+					}
+					fin.close();
+
+					std::cout << "World was open" << std::endl;
+				}
+				//Сохранить пресет
+				else if (event.key.code == sf::Keyboard::S) {
+					std::string fileName = UserInterface().validSaveFilename();
+					std::ostringstream vts;
+					std::copy(grid.begin(), grid.end(), std::ostream_iterator<int>(vts, ""));
+
+					std::ofstream out;
+					out.open(fileName);
+					out << vts.str();
+
+					std::cout << "World was saved" << std::endl;
+				}
 				break;
 			case sf::Event::MouseButtonPressed:
 				if (!isPlaying && event.mouseButton.button == sf::Mouse::Left)
@@ -135,11 +162,12 @@ void GameField::runGame()
 						}
 
 					int val = get_grid(x, y);
+					const int limit_population = 3;
 					neighborSum -= val;
 					set_gridNext(x, y, val);
-					if (val == 1 && (neighborSum < 2 || neighborSum > 3))
+					if (val == 1 && (neighborSum < limit_population-1 || neighborSum > limit_population))
 						set_gridNext(x, y, 0);
-					else if (neighborSum == 3)
+					else if (neighborSum == limit_population)
 						set_gridNext(x, y, 1);
 				}
 			}
@@ -163,4 +191,12 @@ int GameField::wrapValue(int v, int vMax)
 		if (v == -1) return vMax - 1;
 		if (v == vMax) return 0;
 		return v;
+}
+
+void GameField::init_grid()
+{
+	for (int i = 0; i < N_CELLS; i++) {
+		grid.push_back(0);
+		gridNext.push_back(0);
+	}
 }

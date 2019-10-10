@@ -3,18 +3,20 @@
 #include <time.h>
 #include <vector>
 
+#include <sstream> 
+#include <iterator>
+#include <string> 
+#include <algorithm> 
+#include <iostream> 
+
 #define WHITE sf::Color::White
 #define BLACK sf::Color::Black
 #define GRAY sf::Color(153, 153, 153)
 
-class GameField
-{
+class GameField final{
 private:
 		
-	//Текущее состояние поля
-	std::vector<int> grid;
-	//Следующее состояние поля
-	std::vector<int> gridNext;
+
 
 	//Размер ячеек
 	const size_t CELL_SIZE = 20;
@@ -35,8 +37,14 @@ private:
 
 	int wrapValue(int v, int vMax);
 
+	void init_grid();
+
 public:
 	GameField();
+	//Текущее состояние поля
+	std::vector<int> grid;
+	//Следующее состояние поля
+	std::vector<int> gridNext;
 
 	int get_grid(int x, int y);
 	int get_grid(int i);
@@ -48,8 +56,8 @@ public:
 	void set_gridNext(int x, int y, int val);
 	void set_gridNext(int i, int val);	
 
-	void runGame();
+	void run_Game();
 
-	~GameField() {};
+	~GameField() = default;
 };
 

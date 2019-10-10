@@ -3,9 +3,12 @@
 
 //сохранить/загрузить карту
 
+//убрать магические переменные
+//сделать final классы, const noexcept методы
+//описать правила игры в хелпе
+
 int main()
 {		
-	UserInterface  ui;
-	GameField gf;	
-	gf.runGame();
+	UserInterface().showHelp();
+	GameField().run_Game();		
 }
